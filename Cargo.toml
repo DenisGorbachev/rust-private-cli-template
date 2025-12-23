@@ -1,21 +1,21 @@
 [package]
-name = "rust-private-template"
+name = "rust-private-cli-template"
 version = "0.1.0"
 edition = "2024"
 rust-version = "1.85.0"
-description = "A template for creating Rust private repositories."
-homepage = "https://github.com/DenisGorbachev/rust-private-template"
-repository = "https://github.com/DenisGorbachev/rust-private-template"
+description = "Rust private CLI template"
+homepage = "https://github.com/DenisGorbachev/rust-private-cli-template"
+repository = "https://github.com/DenisGorbachev/rust-private-cli-template"
 readme = "README.md"
 keywords = []
 categories = []
 
 [package.metadata.details]
-title = "Rust private template"
+title = "Rust private CLI template"
 tagline = ""
 summary = ""
 announcement = ""
-readme = { generate = false }
+readme = {}
 
 [dependencies]
 derive-getters = { version = "0.5.0", features = ["auto_copy_getters"] }
@@ -40,3 +40,15 @@ ignored = [
     "stub-macro",
     "subtype"
 ]
+
+
+
+
+
+
+
+
+
+
+
+
