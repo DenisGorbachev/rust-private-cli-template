@@ -1,1 +1,3 @@
-//! This is a module-level comment for a Rust lib
+mod cli;
+
+pub use cli::*;
