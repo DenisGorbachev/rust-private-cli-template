@@ -1463,13 +1463,13 @@ mod tests {
 
 ```toml
 [package]
-name = "rust-private-lib-template"
+name = "rust-private-cli-template"
 version = "0.1.0"
 edition = "2024"
 rust-version = "1.85.0"
-description = "A template for creating Rust private repositories."
-homepage = "https://github.com/DenisGorbachev/rust-private-template"
-repository = "https://github.com/DenisGorbachev/rust-private-template"
+description = "Rust private CLI template"
+homepage = "https://github.com/DenisGorbachev/rust-private-cli-template"
+repository = "https://github.com/DenisGorbachev/rust-private-cli-template"
 readme = "README.md"
 keywords = []
 categories = []
@@ -1491,29 +1491,30 @@ exclude = [
 ]
 
 [package.metadata.details]
-title = "Rust private template"
+title = "Rust private CLI template"
 tagline = ""
 summary = ""
 announcement = ""
-readme = { generate = false }
+readme = { }
 
 [dependencies]
+clap = { version = "4.5.11", features = ["derive", "env"] }
 derive-getters = { version = "0.5.0", features = ["auto_copy_getters"] }
 derive-new = "0.7.0"
-derive_more = { version = "2.0.1", features = ["full"] }
+derive_more = { version = "2.1.1", features = ["full"] }
 errgonomic = { git = "https://github.com/DenisGorbachev/errgonomic" }
-fmt-derive = "0.1.2"
 standard-traits = { git = "https://github.com/DenisGorbachev/standard-traits" }
-strum = { version = "0.27.1", features = ["derive"] }
-stub-macro = { version = "0.1.3" }
+strum = { version = "0.27.2", features = ["derive"] }
+stub-macro = { version = "0.2.1" }
 subtype = { git = "https://github.com/DenisGorbachev/subtype" }
+thiserror = "2.0.17"
+tokio = { version = "1.39.2", features = ["macros", "fs", "net", "rt", "rt-multi-thread"] }
 
 [package.metadata.cargo-machete]
 ignored = [
     "derive-getters",
     "derive-new",
     "derive_more",
-    "fmt-derive",
     "errgonomic",
     "standard-traits",
     "strum",
@@ -1522,8 +1523,26 @@ ignored = [
 ]
 ```
 
+### src/main.rs
+
+```rust
+use clap::Parser;
+use errgonomic::exit_result;
+use rust_private_cli_template::Cli;
+use std::process::ExitCode;
+
+#[tokio::main]
+async fn main() -> ExitCode {
+    let args = Cli::parse();
+    let result = args.run().await;
+    exit_result(result)
+}
+```
+
 ### src/lib.rs
 
 ```rust
-//! This is a module-level comment for a Rust lib
+mod cli;
+
+pub use cli::*;
 ```
