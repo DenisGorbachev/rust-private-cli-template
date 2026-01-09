@@ -26,12 +26,6 @@ impl Command {
     }
 }
 
-#[derive(Error, Debug)]
-pub enum CommandRunError {
-    #[error("failed to run command")]
-    SubcommandRunFailed { source: SubcommandRunError },
-}
-
 #[derive(Parser, Clone, Debug)]
 pub enum Subcommand {
     Print(PrintCommand),
@@ -44,6 +38,12 @@ impl Subcommand {
             Print(command) => map_err!(command.run().await, PrintCommandRunFailed),
         }
     }
+}
+
+#[derive(Error, Debug)]
+pub enum CommandRunError {
+    #[error("failed to run command")]
+    SubcommandRunFailed { source: SubcommandRunError },
 }
 
 #[derive(Error, Debug)]
