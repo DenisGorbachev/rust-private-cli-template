@@ -21,7 +21,8 @@ You are a senior Rust software architect. You write high-quality, production-rea
 ### Commands
 
 * Use `fd` and `rg` instead of `find` and `grep`
-* Set the timeout to 300000ms for the following commands: `cargo build`, `mise run agent:on:stop`, `git commit`
+* Use `cargo add` to add dependencies at their latest versions
+* Set the timeout to 300000ms for the following commands: `mise run agent:on:stop`, `cargo build`, `git commit`
 
 ### Modules
 
@@ -48,6 +49,12 @@ You are a senior Rust software architect. You write high-quality, production-rea
     * Use types from `email_address` crate instead of `String` for email-related values
   * Search for other existing crates if you need specific types
   * If you can't find existing crates, define newtypes using macros from `subtype` crate
+* Use `NonZero`-prefixed types from `core::num` for values that must be non-zero
+
+### Data flow
+
+* Don't hardcode the values (accept arguments instead)
+* Use `let` instead of `const`
 
 ### Error handling
 
@@ -1528,21 +1535,27 @@ ignored = [
 ```rust
 use clap::Parser;
 use errgonomic::exit_result;
-use rust_private_cli_template::Cli;
+use rust_private_cli_template::Command;
 use std::process::ExitCode;
 
 #[tokio::main]
 async fn main() -> ExitCode {
-    let args = Cli::parse();
+    let args = Command::parse();
     let result = args.run().await;
     exit_result(result)
+}
+
+#[test]
+fn verify_cli() {
+    use clap::CommandFactory;
+    Command::command().debug_assert();
 }
 ```
 
 ### src/lib.rs
 
 ```rust
-mod cli;
+mod command;
 
-pub use cli::*;
+pub use command::*;
 ```
