@@ -6,7 +6,7 @@ use thiserror::Error;
 #[command(author, version, about)]
 pub struct Command {
     #[command(subcommand)]
-    command: Subcommand,
+    subcommand: Subcommand,
 }
 
 #[derive(clap::Subcommand, Clone, Debug)]
@@ -18,9 +18,9 @@ impl Command {
     pub async fn run(self) -> Result<(), CommandRunError> {
         use CommandRunError::*;
         let Self {
-            command,
+            subcommand,
         } = self;
-        match command {
+        match subcommand {
             Print(command) => map_err!(command.run().await, PrintCommandRunFailed),
         }
     }
