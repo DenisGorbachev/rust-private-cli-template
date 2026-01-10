@@ -2,10 +2,6 @@ use Subcommand::*;
 use errgonomic::map_err;
 use thiserror::Error;
 
-mod print_command;
-
-pub use print_command::*;
-
 #[derive(clap::Parser, Debug)]
 #[command(author, version, about)]
 pub struct Command {
@@ -35,3 +31,7 @@ pub enum CommandRunError {
     #[error("failed to run print command")]
     PrintCommandRunFailed { source: PrintCommandRunError },
 }
+
+mod print_command;
+
+pub use print_command::*;
