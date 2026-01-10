@@ -9,10 +9,13 @@ pub use print_command::*;
 #[derive(clap::Parser, Debug)]
 #[command(author, version, about)]
 pub struct Command {
-    // #[arg(short, long, value_parser = value_parser!(PathBuf))]
-    // root: Option<PathBuf>,
     #[command(subcommand)]
     command: Subcommand,
+}
+
+#[derive(clap::Subcommand, Clone, Debug)]
+pub enum Subcommand {
+    Print(PrintCommand),
 }
 
 impl Command {
@@ -21,19 +24,7 @@ impl Command {
         let Self {
             command,
         } = self;
-        map_err!(command.run().await, SubcommandRunFailed)
-    }
-}
-
-#[derive(clap::Subcommand, Clone, Debug)]
-pub enum Subcommand {
-    Print(PrintCommand),
-}
-
-impl Subcommand {
-    pub async fn run(self) -> Result<(), SubcommandRunError> {
-        use SubcommandRunError::*;
-        match self {
+        match command {
             Print(command) => map_err!(command.run().await, PrintCommandRunFailed),
         }
     }
@@ -41,12 +32,6 @@ impl Subcommand {
 
 #[derive(Error, Debug)]
 pub enum CommandRunError {
-    #[error("failed to run command")]
-    SubcommandRunFailed { source: SubcommandRunError },
-}
-
-#[derive(Error, Debug)]
-pub enum SubcommandRunError {
     #[error("failed to run print command")]
     PrintCommandRunFailed { source: PrintCommandRunError },
 }
