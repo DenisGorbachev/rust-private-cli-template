@@ -3,7 +3,7 @@ use errgonomic::map_err;
 use thiserror::Error;
 
 #[derive(clap::Parser, Debug)]
-#[command(author, version, about)]
+#[command(author, version, about, propagate_version = true)]
 pub struct Command {
     #[command(subcommand)]
     subcommand: Subcommand,
