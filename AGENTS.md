@@ -2103,6 +2103,14 @@ summary = ""
 announcement = ""
 readme = { }
 
+[lints.rust]
+redundant_imports = "deny"
+unused_import_braces = "deny"
+unused_qualifications = "deny"
+
+[lints.clippy]
+absolute_paths = "deny"
+
 [dependencies]
 clap = { version = "4.5.11", features = ["derive", "env"] }
 derive-getters = { version = "0.5.0", features = ["auto_copy_getters"] }
