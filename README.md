@@ -4,8 +4,10 @@
 
 # Rust private CLI template
 
-<!-- crate documentation start -->
+[![Build](https://github.com/DenisGorbachev/rust-private-cli-template/actions/workflows/ci.yml/badge.svg)](https://github.com/DenisGorbachev/rust-private-cli-template)
 
+<!-- crate documentation start -->
+This is a module-level comment for a Rust lib
 <!-- crate documentation end -->
 
 ## Installation
@@ -25,7 +27,7 @@ cargo add rust-private-cli-template
 ## Usage
 
 ```shell
-Rust private CLI template
+A template for creating Rust private CLI apps with Clap.
 
 Usage: rust-private-cli-template <COMMAND>
 
@@ -37,3 +39,11 @@ Options:
   -h, --help     Print help
   -V, --version  Print version
 ```
+
+## Other packages
+
+This workspace has no other packages.
+
+## Gratitude
+
+Like the project? [⭐ Star this repo](https://github.com/DenisGorbachev/rust-private-cli-template) on GitHub!
